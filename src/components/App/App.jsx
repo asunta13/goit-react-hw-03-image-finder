@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 import { GlobalStyle } from '../GlobalStyle';
 import { AppStyled } from './App.styled';
 import { Modal } from '../Modal/Modal';
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -32,13 +33,22 @@ export class App extends Component {
             };
           }
         );
+        if (data.length === 0) {
+          toast.error('No images found :( Please try a new search', {
+            position: 'top-center',
+          });
+          this.setState({
+            isLoading: false,
+          });
+          return;
+        }
         this.setState({
           images: [...images, ...data],
           isLoading: false,
         });
       }
     } catch (error) {
-      toast.error('Oops! Something went wrong! Please try again.');
+      toast.error('Something went wrong! Please try again');
     }
   }
 
@@ -81,7 +91,7 @@ export class App extends Component {
           {images.length > 11 && !isLoading && (
             <Button onClick={this.loadMore} />
           )}
-          {/* {isLoading && <Loader />} */}
+          {isLoading && <Loader />}
           {modalImg.largeImageURL && (
             <Modal modalImg={modalImg} onClose={this.hideModal} />
           )}

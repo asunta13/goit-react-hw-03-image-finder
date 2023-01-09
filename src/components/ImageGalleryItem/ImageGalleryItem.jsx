@@ -18,4 +18,5 @@ ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
   onSelect: PropTypes.func.isRequired,
+  tags: PropTypes.string.isRequired,
 };
